@@ -65,7 +65,7 @@ npx serve .
 
 ## ⚙️ Customization
 
-All date options, messages, and thresholds can be modified in [`js/config.js`](file:///Users/visal.meng/Documents/Public/go-on-date-project/js/config.js):
+All date options, messages, and thresholds can be modified in [`js/config.js`](js/config.js):
 
 - **Change Date Activities**: Edit `Config.vibeOptions`.
 - **Change Times/Schedules**: Edit `Config.timeOptions`.

@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go On Date? 💕 - Modern Date Planner</title>
-    
+    <meta name="description" content="A playful date invitation in three taps — pick the vibe, pick the schedule, then try to press &quot;No thanks&quot; if you can.">
+
+    <!-- Social Link Preview (Open Graph / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vnotudev.github.io/go-on-date/">
+    <meta property="og:title" content="Go On Date? 💕">
+    <meta property="og:description" content="Pick the vibe, pick the schedule, then try to press &quot;No thanks&quot; if you can.">
+    <meta property="og:image" content="https://vnotudev.github.io/go-on-date/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Go On Date — will you go on a date with me?">
+    <meta name="twitter:card" content="summary_large_image">
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
@@ -17,10 +29,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Vendor Libraries -->
-    <script src="https://unpkg.com/lucide@latest" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/lucide@1.47.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" crossorigin="anonymous"></script>
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
@@ -38,10 +48,6 @@
             </span>
             <span class="font-bold text-xl text-rose-600 tracking-tight">Go On Date 💕</span>
         </div>
-        <button id="exportZipBtn" onclick="AppController.exportProjectZip()" class="flex items-center space-x-2 bg-white/80 hover:bg-white text-rose-600 border border-rose-200 px-4 py-2 rounded-full shadow-sm hover:shadow-md text-sm font-semibold transition-all hover:scale-105 active:scale-95">
-            <i data-lucide="folder-archive" class="w-4 h-4"></i>
-            <span>Export Code ZIP</span>
-        </button>
     </header>
 
     <!-- Main Content Container -->

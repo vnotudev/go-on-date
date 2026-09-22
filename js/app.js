@@ -249,43 +249,6 @@ const AppController = {
             el.innerText = 'Copy Summary';
         }, 3000);
     },
-
-    exportProjectZip() {
-        if (typeof JSZip === 'undefined' || typeof saveAs === 'undefined') {
-            alert("Exporter dependencies are still loading. Please try again in a moment!");
-            return;
-        }
-
-        // Package all modular project files
-        Promise.all([
-            fetch('index.html').then(r => r.text()),
-            fetch('css/style.css').then(r => r.text()),
-            fetch('js/config.js').then(r => r.text()),
-            fetch('js/particles.js').then(r => r.text()),
-            fetch('js/app.js').then(r => r.text()),
-            fetch('README.md').then(r => r.text())
-        ]).then(([html, css, configJs, particlesJs, appJs, readme]) => {
-            const zip = new JSZip();
-            zip.file("index.html", html);
-            zip.file("css/style.css", css);
-            zip.file("js/config.js", configJs);
-            zip.file("js/particles.js", particlesJs);
-            zip.file("js/app.js", appJs);
-            zip.file("README.md", readme);
-
-            zip.generateAsync({ type: "blob" }).then(content => {
-                saveAs(content, "go-on-date-project.zip");
-            });
-        }).catch(err => {
-            console.warn("Direct file fetch failed (likely file:// protocol), using fallback exporter:", err);
-            const zip = new JSZip();
-            zip.file("index.html", "<!DOCTYPE html>\n" + document.documentElement.outerHTML);
-            zip.file("README.md", "# Go On Date 💕 - Web Application\n\nOpen index.html to run.\n");
-            zip.generateAsync({ type: "blob" }).then(content => {
-                saveAs(content, "go-on-date-project.zip");
-            });
-        });
-    }
 };
 
 // Initialize application on DOM ready
