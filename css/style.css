@@ -1,0 +1,65 @@
+:root {
+    --bg-gradient-start: #fff0f5;
+    --bg-gradient-mid: #ffd1dc;
+    --bg-gradient-end: #ffe4e1;
+    --primary-rose: #f43f5e;
+    --primary-rose-hover: #e11d48;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-shadow: 0 20px 40px rgba(225, 29, 72, 0.12);
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.font-cursive {
+    font-family: 'Dancing Script', cursive;
+}
+
+/* Glassmorphism card container */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+/* Particle background canvas */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Smooth state transitions */
+.step-transition {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Heartbeat pulse animation */
+.pulse-heart {
+    animation: heartbeat 1.6s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* Evasive button transition */
+#noBtn {
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.2s ease, left 0.2s ease;
+}
