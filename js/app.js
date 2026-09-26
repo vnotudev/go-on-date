@@ -190,6 +190,14 @@ const AppController = {
         FeedbackService.playPop();
         FeedbackService.vibrate();
 
+        // Photo gives a little pout-wiggle on every escape attempt
+        const frame = document.getElementById('princessFrame');
+        if (frame) {
+            frame.classList.remove('princess-wiggle');
+            void frame.offsetWidth;
+            frame.classList.add('princess-wiggle');
+        }
+
         // Dynamically grow YES button
         const scaleFactor = 1 + (AppState.dodgeCount * 0.1);
         yesBtn.style.transform = `scale(${Math.min(scaleFactor, 1.45)})`;
