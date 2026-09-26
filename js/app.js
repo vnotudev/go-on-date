@@ -5,6 +5,8 @@ const AppState = {
     currentStep: 1,
     selectedVibe: Config.vibeOptions[0],
     selectedTime: Config.timeOptions[0],
+    selectedClock: { hour: 7, minute: 30, period: 'PM' },
+    customDate: '',
     dodgeCount: 0
 };
 
@@ -36,6 +38,11 @@ const FeedbackService = {
         if ('vibrate' in navigator) {
             navigator.vibrate(50);
         }
+    },
+    tick() {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(8);
+        }
     }
 };
 
@@ -49,6 +56,14 @@ const AppController = {
         }
         ParticleEngine.init();
         this.renderStep1Options();
+        DatePicker.init(document.getElementById('calendarPicker'), {
+            selected: AppState.customDate,
+            onChange: iso => this.selectCustomDate(iso)
+        });
+        TimePicker.init(document.getElementById('timePicker'), {
+            value: AppState.selectedClock,
+            onChange: clock => { AppState.selectedClock = clock; }
+        });
         this.goToStep(1, false);
     },
 
@@ -77,7 +92,7 @@ const AppController = {
             timeContainer.innerHTML = Config.timeOptions.map(time => `
                 <button onclick="AppController.selectTime('${time.id}')"
                         id="time-${time.id}"
-                        class="time-btn py-3 px-4 rounded-xl border transition-all text-left flex items-center justify-between ${
+                        class="time-btn py-3 px-4 rounded-xl border transition-all text-left flex items-center justify-between ${time.custom ? 'col-span-2' : ''} ${
                             AppState.selectedTime.id === time.id
                             ? 'bg-rose-50 border-rose-500 text-rose-700 font-bold ring-2 ring-rose-400/20'
                             : 'bg-white/80 border-rose-200 hover:border-rose-300 text-slate-700 font-semibold'
@@ -87,6 +102,38 @@ const AppController = {
                 </button>
             `).join('');
         }
+
+        const customContainer = document.getElementById('customDateContainer');
+        if (customContainer) {
+            customContainer.classList.toggle('hidden', !AppState.selectedTime.custom);
+        }
+    },
+
+    selectCustomDate(value) {
+        AppState.customDate = value;
+        const hint = document.getElementById('customDateHint');
+        if (hint && value) hint.classList.add('hidden');
+    },
+
+    continueToQuestion() {
+        if (AppState.selectedTime.custom && !AppState.customDate) {
+            const hint = document.getElementById('customDateHint');
+            if (hint) hint.classList.remove('hidden');
+            FeedbackService.vibrate();
+            return;
+        }
+        this.goToStep(2);
+    },
+
+    getScheduleLabel() {
+        let dayLabel = AppState.selectedTime.label;
+        if (AppState.selectedTime.custom && AppState.customDate) {
+            const formatted = PickerUtils.parseISODate(AppState.customDate).toLocaleDateString('en-US', {
+                weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+            });
+            dayLabel = `📅 ${formatted}`;
+        }
+        return `${dayLabel} · ${TimePicker.formatLabel(AppState.selectedClock)}`;
     },
 
     selectVibe(vibeId) {
@@ -111,6 +158,7 @@ const AppController = {
         // Show target step
         const currentView = document.getElementById(`step${stepNumber}`);
         if (currentView) currentView.classList.remove('hidden');
+        if (stepNumber === 1) TimePicker.sync(false);
 
         // Update progress tracking header
         const stepText = document.getElementById('stepIndicatorText');
@@ -180,7 +228,7 @@ const AppController = {
         const vibeEl = document.getElementById('summaryVibe');
         const timeEl = document.getElementById('summaryTime');
         if (vibeEl) vibeEl.innerText = `${AppState.selectedVibe.icon} ${AppState.selectedVibe.label}`;
-        if (timeEl) timeEl.innerText = AppState.selectedTime.label;
+        if (timeEl) timeEl.innerText = this.getScheduleLabel();
 
         // Fire celebration confetti
         this.triggerCelebrationConfetti();
@@ -203,7 +251,7 @@ const AppController = {
     },
 
     getSummaryText() {
-        return `It's a date! 💕\nActivity: ${AppState.selectedVibe.icon} ${AppState.selectedVibe.label}\nSchedule: ${AppState.selectedTime.label}`;
+        return `It's a date! 💕\nActivity: ${AppState.selectedVibe.icon} ${AppState.selectedVibe.label}\nSchedule: ${this.getScheduleLabel()}`;
     },
 
     sendWhatsApp() {

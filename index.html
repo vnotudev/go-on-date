@@ -83,13 +83,22 @@
 
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-500 mb-2">Choose the Ideal Schedule</label>
-                        <div class="grid grid-cols-1 gap-2" id="timeOptionsContainer">
+                        <div class="grid grid-cols-2 gap-2" id="timeOptionsContainer">
                             <!-- Populated dynamically by AppController -->
                         </div>
+                        <div id="customDateContainer" class="hidden reveal mt-3">
+                            <div id="calendarPicker" class="picker-card rounded-2xl p-4"></div>
+                            <p id="customDateHint" class="hidden mt-2 text-xs font-semibold text-rose-500">Pick a day on the calendar first 🥺</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 mb-2">Choose the Time</label>
+                        <div id="timePicker" class="picker-card rounded-2xl p-4"></div>
                     </div>
                 </div>
 
-                <button onclick="AppController.goToStep(2)" class="w-full py-4 px-6 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-lg shadow-lg shadow-rose-500/25 transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center space-x-2">
+                <button onclick="AppController.continueToQuestion()" class="w-full py-4 px-6 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-lg shadow-lg shadow-rose-500/25 transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center space-x-2">
                     <span>Continue to The Big Question</span>
                     <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
@@ -101,9 +110,9 @@
                     <i data-lucide="heart-handshake" class="w-10 h-10"></i>
                 </div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-rose-600 font-cursive leading-tight">
-                    Will you go on a date with me? 💖
+                    Will you go on a date with me, my princess Seavmey bong, my bubu? 💖
                 </h2>
-                <p class="text-sm text-slate-500 font-medium">I promise good food, great vibes, and zero awkward silence!</p>
+                <p class="text-sm text-slate-500 font-medium">I’ll bring the good food, great vibes, and enough conversation to make sure there’s never an awkward silence. bubu😉</p>
 
                 <!-- Evasive Interaction Playground Area -->
                 <div id="evasivePlayground" class="relative min-h-[160px] flex items-center justify-center pt-2">
@@ -180,6 +189,7 @@
     <!-- Modular Application Scripts -->
     <script src="js/config.js"></script>
     <script src="js/particles.js"></script>
+    <script src="js/pickers.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
