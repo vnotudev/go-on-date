@@ -3,6 +3,8 @@
  * Custom date activities, schedule options, and evasive button messages.
  */
 const Config = {
+    // Your Telegram username (without @) — her answer is sent straight to this chat
+    telegramUsername: 'mengvsl',
     maxDodges: 5,
     dodgeMessages: [
         "Nice try! 😉",

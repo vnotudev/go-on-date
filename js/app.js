@@ -254,9 +254,20 @@ const AppController = {
         return `It's a date! 💕\nActivity: ${AppState.selectedVibe.icon} ${AppState.selectedVibe.label}\nSchedule: ${this.getScheduleLabel()}`;
     },
 
-    sendWhatsApp() {
-        const encodedText = encodeURIComponent(this.getSummaryText());
-        window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+    sendTelegram() {
+        const text = this.getSummaryText();
+        const encodedText = encodeURIComponent(text);
+
+        // Copy first so she can paste if her Telegram app doesn't pre-fill the draft
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).catch(() => {});
+        }
+
+        const username = Config.telegramUsername.replace(/^@/, '');
+        const url = username
+            ? `https://t.me/${username}?text=${encodedText}`
+            : `https://t.me/share/url?url=${encodeURIComponent(location.href)}&text=${encodedText}`;
+        window.open(url, '_blank');
     },
 
     copySummaryToClipboard() {

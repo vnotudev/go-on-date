@@ -1,6 +1,6 @@
 # Go On Date 💕 - Web Application
 
-A modern, interactive date invitation and planning web application with evasive "No Refuse" playful button physics, celebration confetti, and WhatsApp summary sharing.
+A modern, interactive date invitation and planning web application with evasive "No Refuse" playful button physics, celebration confetti, and Telegram summary sharing.
 
 ---
 
@@ -35,7 +35,7 @@ go-on-date-project/
 - **Celebration & Sharing (Step 3)**:
   - Multi-stage confetti blast via Canvas Confetti.
   - Formatted plan summary.
-  - One-click WhatsApp invitation link (`wa.me`).
+  - One-click Telegram message to the organizer (`t.me`), set via `telegramUsername` in `js/config.js`.
   - One-click clipboard copy.
 - **Floating Particles**: Lightweight canvas animation with floating hearts and sparkles.
 - **Zero-Build Setup**: Runs directly in any web browser without Node.js, Webpack, or backend servers.
